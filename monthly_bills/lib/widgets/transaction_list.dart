@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:monthly_bills/models/transaction.dart';
-import 'package:intl/intl.dart';
 import 'package:monthly_bills/widgets/transaction_card.dart';
 
 class TransactionList extends StatelessWidget {
@@ -20,7 +19,7 @@ class TransactionList extends StatelessWidget {
                 children: [
                   Text("Empty Transactions!",
                       style: Theme.of(context).textTheme.headline6),
-                  Container(
+                  SizedBox(
                     height: constraints.maxHeight * 0.6,
                     child: Image.network(
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2irS6SVFvcX4FBxXXWmrhe8MOHJc3slgmEg&usqp=CAU",

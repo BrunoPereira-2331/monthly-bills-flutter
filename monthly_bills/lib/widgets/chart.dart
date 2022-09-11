@@ -43,30 +43,18 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _mediaQuery = MediaQuery.of(context);
-
-    // List<Flexible> transactions = groupedTransactions.map((transaction) {
-    //           double transactionValue =
-    //               double.parse(transaction['value'].toString());
-
-    // return Flexible(
-    //   fit: FlexFit.tight,
-    //     child: ChartBar(
-    //         label: transaction['day'].toString(),
-    //         value: transactionValue,
-    //         percentage: _weekTotalValue == 0 ? 0 : transactionValue / _weekTotalValue));
-    //         }).toList();
+    final mediaQuery = MediaQuery.of(context);
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView.separated(
             itemCount: groupedTransactions.length,
             scrollDirection: Axis.horizontal,
             separatorBuilder: (context, index) => SizedBox(
-              width: _mediaQuery.size.width * 0.05,
-            ),
+                  width: mediaQuery.size.width * 0.05,
+                ),
             itemBuilder: (BuildContext context, int index) {
               var currentTransaction = groupedTransactions[index];
               double transactionValue =
@@ -77,22 +65,7 @@ class Chart extends StatelessWidget {
                   percentage: _weekTotalValue == 0
                       ? 0
                       : transactionValue / _weekTotalValue);
-            })
-
-        //     Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-        // children: groupedTransactions2.map((transaction) {
-        //   double transactionValue =
-        //       double.parse(transaction['value'].toString());
-
-        //   return Flexible(
-        //     fit: FlexFit.tight,
-        //       child: ChartBar(
-        //           label: transaction['day'].toString(),
-        //           value: transactionValue,
-        //           percentage: _weekTotalValue == 0 ? 0 : transactionValue / _weekTotalValue));
-        // }).toList())
-        ,
+            }),
       ),
     );
   }

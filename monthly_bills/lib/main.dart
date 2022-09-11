@@ -28,7 +28,7 @@ class _MonthlyBillsAppState extends State<MonthlyBillsApp> {
     return MaterialApp(
         theme: ThemeData(
             primarySwatch: Colors.purple,
-            appBarTheme: AppBarTheme(
+            appBarTheme: const AppBarTheme(
                 toolbarTextStyle: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 18,
@@ -43,12 +43,12 @@ class _MonthlyBillsAppState extends State<MonthlyBillsApp> {
                   primary: Colors.purple,
                   secondary: Colors.amber,
                 )),
-        home: HomePage());
+        home: const HomePage());
   }
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -60,22 +60,22 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
         id: '1',
         title: 'Snickers',
         value: 310.76,
-        date: DateTime.now().subtract(Duration(days: 3))),
+        date: DateTime.now().subtract(const Duration(days: 3))),
     Transaction(
         id: '2',
         title: 'Eletricity',
         value: 41.30,
-        date: DateTime.now().subtract(Duration(days: 3))),
+        date: DateTime.now().subtract(const Duration(days: 3))),
     Transaction(
         id: '3',
         title: 'Water',
         value: 111.30,
-        date: DateTime.now().subtract(Duration(days: 4))),
+        date: DateTime.now().subtract(const Duration(days: 4))),
     Transaction(
         id: '4',
         title: 'Supermarket',
         value: 211.30,
-        date: DateTime.now().subtract(Duration(days: 4))),
+        date: DateTime.now().subtract(const Duration(days: 4))),
   ];
 
   bool _showChart = false;
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
   List<Transaction> get _getRecentTransactions {
     return _transactions.where((transaction) {
       return transaction.date
-          .isAfter(DateTime.now().subtract(Duration(days: 7)));
+          .isAfter(DateTime.now().subtract(const Duration(days: 7)));
     }).toList();
   }
 
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
     final chartList =
         Platform.isIOS ? CupertinoIcons.refresh : Icons.show_chart;
 
-    final _actions = [
+    final actions = [
       if (isLandscape)
         _getIconButton(_showChart ? iconList : chartList, () {
           setState(() {
@@ -142,15 +142,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
 
     final dynamic appBar = (Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text("Monthly Bills"),
-            trailing: Row(mainAxisSize: MainAxisSize.min, children: _actions),
+            middle: const Text("Monthly Bills"),
+            trailing: Row(mainAxisSize: MainAxisSize.min, children: actions),
           )
         : AppBar(
             title: Text(
               "Monthly Bills",
               style: TextStyle(fontSize: 15 * mediaQuery.textScaleFactor),
             ),
-            actions: _actions,
+            actions: actions,
           )) as PreferredSizeWidget;
 
     final preferredSizeHeight =
@@ -178,17 +178,17 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
     ));
 
     return Platform.isIOS
-        ? CupertinoPageScaffold(child: bodyPage, navigationBar: appBar)
+        ? CupertinoPageScaffold(navigationBar: appBar, child: bodyPage)
         : Scaffold(
             appBar: appBar,
             body: bodyPage,
             floatingActionButton: Platform.isAndroid
                 ? FloatingActionButton(
-                    child: Icon(Icons.add),
                     backgroundColor: Theme.of(context).primaryColor,
                     onPressed: () {
                       _openTransactionFormModal(context);
                     },
+                    child: const Icon(Icons.add),
                   )
                 : Container(),
           );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'adaptative_button.dart';
 import 'adaptative_text_field.dart';
 import 'adaptative_button datepicker.dart';
@@ -22,7 +21,7 @@ class _TransactionFormState extends State<TransactionForm> {
     final title = _titleController.text;
     final value = double.tryParse(_valueController.text) ?? 0;
 
-    if (!title.isEmpty || value > 0) {
+    if (!title.isEmpty && value > 0) {
       widget.onSubmit!(title, value, _selectedDate);
     }
   }
@@ -50,8 +49,8 @@ class _TransactionFormState extends State<TransactionForm> {
               AdaptativeTextField(
                 label: 'Value (R\$)',
                 controller: _valueController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onSubmit: _submitForm,
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                onSubmit: () {},
               ),
               AdaptativeDatePicker(
                   selectedDate: _selectedDate,
