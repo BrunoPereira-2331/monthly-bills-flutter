@@ -1,8 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 
 class TransactionCard extends StatefulWidget {
@@ -27,21 +23,9 @@ class TransactionCard extends StatefulWidget {
 
 class _TransactionCardState extends State<TransactionCard> {
 
-  static const colors = [
-    Colors.red,
-    Colors.purple,
-    Colors.orange,
-    Colors.blue,
-    Colors.black,
-  ];
-
-  Color _backgroundColor = Colors.blue;
-
   @override
   void initState() {
     super.initState();
-    int i = Random().nextInt(5);
-    _backgroundColor = colors[i];
   }
 
   @override
@@ -51,7 +35,6 @@ class _TransactionCardState extends State<TransactionCard> {
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: _backgroundColor,
           radius: 30,
           child: Padding(
             padding: const EdgeInsets.all(6),

@@ -5,7 +5,7 @@ import 'adaptative_text_field.dart';
 import 'adaptative_button datepicker.dart';
 
 class TransactionForm extends StatefulWidget {
-  TransactionForm({Key? key, required this.onSubmit}) : super(key: key);
+  const TransactionForm({Key? key, required this.onSubmit}) : super(key: key);
 
   final void Function(String, double, DateTime)? onSubmit;
 
@@ -22,24 +22,24 @@ class _TransactionFormState extends State<TransactionForm> {
     final title = _titleController.text;
     final value = double.tryParse(_valueController.text) ?? 0;
 
-    if (title.isEmpty || value < 0) {
-      return false;
+    if (!title.isEmpty || value > 0) {
+      widget.onSubmit!(title, value, _selectedDate);
     }
-
-    widget.onSubmit!(title, value, _selectedDate);
   }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return SingleChildScrollView(
       child: Card(
         elevation: 5,
         child: Padding(
           padding: EdgeInsets.only(
-              top: 10,
-              right: 10,
-              bottom: 10,
-              left: 10 + MediaQuery.of(context).viewInsets.bottom),
+            top: mediaQuery.size.height * 0.02,
+            right: mediaQuery.size.width * 0.03,
+            left: mediaQuery.size.width * 0.03,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
           child: Column(
             children: [
               AdaptativeTextField(
@@ -48,16 +48,18 @@ class _TransactionFormState extends State<TransactionForm> {
                 onSubmit: () {},
               ),
               AdaptativeTextField(
-                  label: 'Value (R\$)',
-                  controller: _valueController,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  onSubmit: _submitForm,
-                  ),
-              AdaptativeDatePicker(selectedDate: _selectedDate, onDateChange: (newDate) {
-                setState(() {
-                    _selectedDate = newDate;
-                });
-              }),
+                label: 'Value (R\$)',
+                controller: _valueController,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                onSubmit: _submitForm,
+              ),
+              AdaptativeDatePicker(
+                  selectedDate: _selectedDate,
+                  onDateChange: (newDate) {
+                    setState(() {
+                      _selectedDate = newDate;
+                    });
+                  }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
