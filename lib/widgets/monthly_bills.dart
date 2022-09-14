@@ -120,23 +120,21 @@ class _MonthlyBillsState extends State<MonthlyBills>
         mediaQuery.size.height - preferredSizeHeight - mediaQuery.padding.top;
 
     final bodyPage = SafeArea(
-        child: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (_showChart || !isLandscape)
-            Container(
-              height: avaliableHeight * (isLandscape ? 0.8 : 0.35),
-              child: Chart(recentTransaction: _getRecentTransactions),
-            ),
-          if (!_showChart || !isLandscape)
-            Container(
-                height: avaliableHeight * (isLandscape ? 1 : 0.7),
-                child: TransactionList(
-                    transactions: _transactions, onRemove: _deleteTransaction))
-        ],
-      ),
-    ));
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (_showChart || !isLandscape)
+              SizedBox(
+                height: avaliableHeight * (isLandscape ? 0.8 : 0.35),
+                child: Chart(recentTransaction: _getRecentTransactions),
+              ),
+            if (!_showChart || !isLandscape)
+              SizedBox(
+                  height: avaliableHeight * (isLandscape ? 1 : 0.65),
+                  child: TransactionList(
+                      transactions: _transactions, onRemove: _deleteTransaction))
+          ],
+        ));
 
     return Platform.isIOS
         ? CupertinoPageScaffold(navigationBar: appBar, child: bodyPage)
