@@ -14,7 +14,8 @@ class MonthlyBills extends StatefulWidget {
   State<MonthlyBills> createState() => _MonthlyBillsState();
 }
 
-class _MonthlyBillsState extends State<MonthlyBills> with WidgetsBindingObserver{
+class _MonthlyBillsState extends State<MonthlyBills>
+    with WidgetsBindingObserver {
   final List<Transaction> _transactions = [
     Transaction(
         id: '1',
@@ -142,15 +143,6 @@ class _MonthlyBillsState extends State<MonthlyBills> with WidgetsBindingObserver
         : Scaffold(
             appBar: appBar,
             body: bodyPage,
-            floatingActionButton: Platform.isAndroid
-                ? FloatingActionButton(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      _openTransactionFormModal(context);
-                    },
-                    child: const Icon(Icons.add),
-                  )
-                : Container(),
           );
   }
 }
